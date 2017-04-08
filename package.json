@@ -1,0 +1,17 @@
+{
+    "name": "todo-webapi",
+    "version": "1.0.0",
+    "main": "src/app.js",
+    "license": "MIT",
+    "scripts": {
+        "dev": "node_modules/.bin/node-dev src/app.js"
+    },
+    "dependencies": {
+        "body-parser": "^1.17.1",
+        "cors": "^2.8.3",
+        "express": "^4.15.2"
+    },
+    "devDependencies": {
+        "node-dev": "^3.1.3"
+    }
+}
