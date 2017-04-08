@@ -1,14 +1,23 @@
-let todos = [
-    { id: 1, title: 'Learn NodeJS', completed: false },
-    { id: 2, title: 'Create Express App', completed: true }
-]
-let list = () => {
-    return todos
+const MongoClient = require('mongodb').MongoClient
+let list = (fn) => {
+    MongoClient.connect('mongodb://localhost:27017/todos', (err, db) => {
+        db.collection('todos').find({}).toArray((err, todos) => {
+            fn(todos)
+            db.close()
+        })
+    })
 }
-let create = (newTodo) => {
-    newTodo.id = todos.length + 1;
-    todos.push(newTodo)
-    return newTodo
+let create = (newTodo, fn) => {
+    MongoClient.connect('mongodb://localhost:27017/todos', (err, db) => {
+        db.collection('todos').count(function (err, count) {
+            newTodo.id = count + 1
+            newTodo.completed = false
+            db.collection('todos').insertOne(newTodo, (err, r) => {
+                fn(newTodo)
+                db.close()
+            })
+        })
+    })
 }
 module.exports = {
     list,

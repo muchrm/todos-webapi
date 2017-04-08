@@ -1,13 +1,18 @@
 const todoService = require('./service')
 
 let listTodos = (req, res) => {
-    res.json(todoService.list())
+    todoService.list((todos) => {
+        res.json(todos)
+    })
 }
 let createTodo = (req, res) => {
     let newTodo = req.body
-    res.status(201).json(todoService.create(newTodo))
+    todoService.create(newTodo, (todo) => {
+        res.status(201).json(todo)
+    })
+
 }
 module.exports = {
-    listTodos: listTodos,
-    createTodo: createTodo
+    listTodos,
+    createTodo
 }
