@@ -10,7 +10,16 @@ describe('todos-routing', () => {
     describe('/GET todos', () => {
         beforeEach(() => {
             const todosService = require('./service')
-            todosService.list.mockReturnValue(Promise.resolve([{ "_id": "58e9aaf9553e4014d4376a3e", "title": "hello" }]))
+            todosService.list.mockReturnValue(
+                Promise.resolve(
+                    [
+                        {
+                            _id: "58e9aaf9553e4014d4376a3e",
+                            title: "hello"
+                        }
+                    ]
+                )
+            )
             todosRouting(app)
         })
         it('should return HTTP 200 OK when successfull', () => {
@@ -22,21 +31,37 @@ describe('todos-routing', () => {
             return supertest(app)
                 .get('/todos')
                 .then((res) => {
-                    expect(res.body).toEqual([{ "_id": "58e9aaf9553e4014d4376a3e", "title": "hello" }])
+                    expect(res.body).toEqual(
+                        [
+                            {
+                                _id: "58e9aaf9553e4014d4376a3e",
+                                title: "hello"
+                            }
+                        ]
+                    )
                 })
         })
     })
     describe('/POST todos', () => {
         it('should create todo', () => {
             const todosService = require('./service')
-            todosService.create.mockReturnValue(Promise.resolve({
-                id: '58e9aaf9553e4014d4376a3e',
-                title: 'Learn supertest',
-                completed: false,
-            }))
+            todosService.create.mockReturnValue(
+                Promise.resolve(
+                    {
+                        id: '58e9aaf9553e4014d4376a3e',
+                        title: 'Learn supertest',
+                        completed: false,
+                    }
+                )
+            )
             todosRouting(app)
             return supertest(app).post('/todos')
-                .send({ title: 'Learn supertest', completed: false })
+                .send(
+                {
+                    title: 'Learn supertest',
+                    completed: false
+                }
+                )
                 .set('Content-Type', 'appplication/json')
                 .then((res) => {
                     expect(res.body.id).toEqual('58e9aaf9553e4014d4376a3e')
