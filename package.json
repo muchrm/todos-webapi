@@ -1,10 +1,11 @@
 {
     "name": "todo-webapi",
     "version": "1.0.0",
-    "main": "src/app.js",
+    "main": "src/index.js",
     "license": "MIT",
     "scripts": {
-        "dev": "node_modules/.bin/nodemon src/app.js"
+        "dev": "node_modules/.bin/nodemon src/index.js",
+        "test": "node_modules/.bin/jest"
     },
     "dependencies": {
         "body-parser": "^1.17.1",
@@ -14,6 +15,7 @@
     },
     "devDependencies": {
         "jest-cli": "^19.0.2",
-        "nodemon": "^1.11.0"
+        "nodemon": "^1.11.0",
+        "supertest": "^3.0.0"
     }
 }
